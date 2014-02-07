@@ -195,7 +195,26 @@ describe "without units" do
 end
 
 describe "ingredient formatting" do
-  it "should not have any preceding or trailing whitespace" do
-    Ingreedy.parse("1 cup flour ").ingredient.should == "flour"
+  #before(:all) {
+    @expected_results = {
+        '1 c. flour' => 'flour',
+        '1  c. Crisco shortening' => 'Crisco shortening',
+        '2  large Granny Smith apples, diced' => 'Granny Smith apples',
+        '2 to 3  Tbsp. chili powder' => 'chili powder',
+        '7 to 7 1/2  c. all-purpose flour' => 'all-purpose flour',
+        '1  pkg. active dry yeast' => 'active dry yeast',
+        'pinch of nutmeg' => 'nutmeg',
+        '6-8 c. bread crumbs' => 'bread crumbs',
+        '1  jar Ragu spaghetti sauce (15 1/2 oz.)' => 'Ragu spaghetti sauce',
+        '1  1/2 t. baking soda' => 'baking soda',
+        '1 8  oz. cream cheese' => 'cream cheese',
+        '1  (18.25 oz.)  Betty Crocker devils food SuperMoist cake mix (dry; do not make as directed on the box)' => 'Betty Crocker devils food SuperMoist cake mix'
+    }
+  #}
+
+  @expected_results.each_pair do |raw, expected|
+    it "should convert '#{raw}' to '#{expected}'" do
+      expect(Ingreedy.parse(raw).ingredient).to eq(expected)
+    end
   end
 end

@@ -10,13 +10,15 @@ class IngreedyParser
     ingreedy_regex = %r{
       (?<amount> .?\d+(\.\d+)? ) {0}
       (?<fraction> \d\/\d ) {0}
+      (?<range> (\g<fraction>|\g<amount>)\s*(to|-)\s*(\g<fraction>|\g<amount>)) {0}
 
       (?<container_amount> \d+(\.\d+)?) {0}
-      (?<container_unit> .+) {0}
+      (?<container_unit> [^)]+) {0}
       (?<container_size> \(\g<container_amount>\s\g<container_unit>\)) {0}
-      (?<unit_and_ingredient> .+ ) {0}
+      (?<unit_and_ingredient> [^(,;]+ ) {0}
+      (?<specifics> ,\s*.* ) {0}
 
-      (\g<fraction>\s)?(\g<amount>\s?)?(\g<fraction>\s)?(\g<container_size>\s)?\g<unit_and_ingredient>
+      (\g<range>\s*)?(\g<fraction>\s*)?(\g<amount>\s*)*(\g<fraction>\s*)?(\g<container_size>\s)?\g<unit_and_ingredient>\g<specifics>?\g<container_size>?
     }x
     results = ingreedy_regex.match(@query)
 
@@ -77,14 +79,28 @@ class IngreedyParser
     set_unit_variations :dash, ["dash", "dashes"]
     set_unit_variations :touch, ["touch", "touches"]
     set_unit_variations :handful, ["handful", "handfuls"]
+    # generic size units
+    set_unit_variations :large, ['large']
+    set_unit_variations :small, ['small', 'tiny']
+    set_unit_variations :box, ['boxes', 'box']
+    set_unit_variations :can, ['cans', 'can']
+    set_unit_variations :jar, ['jars', 'jar']
+    set_unit_variations :package, ['packages', 'package', 'pkg.', 'pkgs', 'pkg']
   end
 
   def parse_unit
+    # Remove any lingering whitespace from the ingredient string
+    @ingredient_string.strip!
+
     unit_map.each do |abbrev, unit|
-      if @ingredient_string.start_with?(abbrev + " ")
-        # if a unit is found, remove it from the ingredient string
-        @ingredient_string.sub! abbrev, ""
-        @unit = unit
+      variations = ["#{abbrev} of ", "#{abbrev} "]
+
+      variations.each do |variation|
+        if @ingredient_string.start_with?(variation)
+          # if a unit is found, remove it from the ingredient string
+          @ingredient_string.sub! variation, ''
+          @unit = unit
+        end
       end
     end
 
