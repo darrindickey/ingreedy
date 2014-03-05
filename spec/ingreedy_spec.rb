@@ -208,7 +208,8 @@ describe "ingredient formatting" do
         '1  jar Ragu spaghetti sauce (15 1/2 oz.)' => 'Ragu spaghetti sauce',
         '1  1/2 t. baking soda' => 'baking soda',
         '1 8  oz. cream cheese' => 'cream cheese',
-        '1  (18.25 oz.)  Betty Crocker devils food SuperMoist cake mix (dry; do not make as directed on the box)' => 'Betty Crocker devils food SuperMoist cake mix'
+        '1  (18.25 oz.)  Betty Crocker devils food SuperMoist cake mix (dry; do not make as directed on the box)' => 'betty crocker devils food supermoist cake mix',
+        '(17.3 ounces) Pepperidge Farm Puff Pastry Sheets , thawed' => 'pepperidge farm puff pastry sheets'
     }
   #}
 

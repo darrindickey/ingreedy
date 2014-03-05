@@ -8,17 +8,18 @@ class IngreedyParser
 
   def parse
     ingreedy_regex = %r{
+      (?<container_amount> \d+(\.\d+)?) {0}
+      (?<container_unit> [^)]+) {0}
+      (?<container_size> (\g<container_amount>\s*)*\(\g<container_amount>\s*\g<container_unit>\)) {0}
+
       (?<amount> .?\d+(\.\d+)? ) {0}
       (?<fraction> \d\/\d ) {0}
       (?<range> (\g<fraction>|\g<amount>)\s*(to|-)\s*(\g<fraction>|\g<amount>)) {0}
 
-      (?<container_amount> \d+(\.\d+)?) {0}
-      (?<container_unit> [^)]+) {0}
-      (?<container_size> \(\g<container_amount>\s\g<container_unit>\)) {0}
       (?<unit_and_ingredient> [^(,;]+ ) {0}
       (?<specifics> ,\s*.* ) {0}
 
-      (\g<range>\s*)?(\g<fraction>\s*)?(\g<amount>\s*)*(\g<fraction>\s*)?(\g<container_size>\s)?\g<unit_and_ingredient>\g<specifics>?\g<container_size>?
+      (\g<range>\s*)?(\g<container_size>\s)?(\g<fraction>\s*)?(\g<amount>\s*)*(\g<fraction>\s*)?\g<unit_and_ingredient>\g<specifics>?\g<container_size>?
     }x
     results = ingreedy_regex.match(@query)
 
