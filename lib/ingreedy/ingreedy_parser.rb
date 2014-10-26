@@ -7,23 +7,28 @@ class IngreedyParser
   end
 
   def parse
-    ingreedy_regex = %r{
-      (?<container_amount> \d+(\.\d+)?) {0}
+    ingreedy_regex = /
+      (?<fraction> \d\/\d ) {0}
+      (?<amount> (\g<fraction>)|(\d+(\.\d+)?(\s*)(.?\g<fraction>)?) ) {0}
+      (?<range> ((\g<fraction>|\g<amount>)\s*(to|-)\s*(\g<fraction>|\g<amount>))) {0}
+      (?<unit> (\s*(#{unit_map_as_regex})[\s\.]*)) {0}
+      (?<unit_amt> (((\g<range>|\g<amount>)\s+)?(\g<unit>))) {0}
+
+      (?<container_amount> (\g<range>|\g<amount>)) {0}
       (?<container_unit> [^)]+) {0}
       (?<container_size> (\g<container_amount>\s*)*\(\g<container_amount>\s*\g<container_unit>\)) {0}
 
-      (?<amount> .?\d+(\.\d+)? ) {0}
-      (?<fraction> \d\/\d ) {0}
-      (?<range> (\g<fraction>|\g<amount>)\s*(to|-)\s*(\g<fraction>|\g<amount>)) {0}
-
-      (?<unit_and_ingredient> [^(,;]+ ) {0}
+      (?<ingredient> [^(,;]+ ) {0}
       (?<specifics> ,\s*.* ) {0}
 
-      (\g<range>\s*)?(\g<container_size>\s)?(\g<fraction>\s*)?(\g<amount>\s*)*(\g<fraction>\s*)?\g<unit_and_ingredient>\g<specifics>?\g<container_size>?
-    }x
+      \g<container_amount>?\g<unit_amt>?(of)?\g<container_size>?\g<ingredient>\g<specifics>?
+    /xi
+
+    puts("Using regex\n#{ingreedy_regex}")
+
     results = ingreedy_regex.match(@query)
 
-    @ingredient_string = results[:unit_and_ingredient]
+    @ingredient_string = results[:ingredient]
     @container_amount = results[:container_amount]
     @container_unit = results[:container_unit]
 
@@ -54,6 +59,15 @@ class IngreedyParser
   def unit_map
     create_unit_map unless @unit_map
     @unit_map
+  end
+
+  def unit_map_as_regex
+    return @unit_map_regex if @unit_map_regex
+
+    all_units = unit_map.keys
+    sorted_units = all_units.sort { |x,y| y.length <=> x.length }
+
+    @unit_map_regex = sorted_units.join("|")
   end
 
   def create_unit_map
@@ -126,8 +140,8 @@ class IngreedyParser
   end
 
   def parse_unit_and_ingredient
-    parse_unit
+    #parse_unit
     # clean up ingredient string
-    @ingredient = @ingredient_string.lstrip.rstrip
+    @ingredient = @ingredient_string.lstrip.rstrip.split(/\s+(or)\s+/).first
   end
 end

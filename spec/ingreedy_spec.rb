@@ -208,8 +208,17 @@ describe "ingredient formatting" do
         '1  jar Ragu spaghetti sauce (15 1/2 oz.)' => 'Ragu spaghetti sauce',
         '1  1/2 t. baking soda' => 'baking soda',
         '1 8  oz. cream cheese' => 'cream cheese',
-        '1  (18.25 oz.)  Betty Crocker devils food SuperMoist cake mix (dry; do not make as directed on the box)' => 'betty crocker devils food supermoist cake mix',
-        '(17.3 ounces) Pepperidge Farm Puff Pastry Sheets , thawed' => 'pepperidge farm puff pastry sheets'
+        '1  (18.25 oz.)  Betty Crocker devils food SuperMoist cake mix (dry; do not make as directed on the box)' => 'Betty Crocker devils food SuperMoist cake mix',
+        '(17.3 ounces) Pepperidge Farm Puff Pastry Sheets , thawed' => 'Pepperidge Farm Puff Pastry Sheets',
+        '1 1/2 cups all-purpose flour' => 'all-purpose flour',
+        '1 1/2 cups (6.75 ounces or 195 grams) all-purpose flour' => 'all-purpose flour',
+        '3 1/2 cups flour, plus additional for the work surface' => 'flour',
+        '1/8 teaspoon ground nutmeg' => 'ground nutmeg',
+        '1/2 cup buttermilk' => 'buttermilk',
+        'Vegetable oil or shortening (see my explanation in the post) for frying' => 'Vegetable oil',
+        '4 tablespoons (1/2 stick or 2 ounces) butter, at room temperature' => 'butter',
+        '1 cup white wine (they suggest 1/2 cup but I need more to steam that volume)' => 'white wine',
+        '1 handful fresh flat-leaf parsley leaves, minced' => 'fresh flat-leaf parsley leaves'
     }
   #}
 
