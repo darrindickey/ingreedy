@@ -11,7 +11,7 @@ class IngreedyParser
       (?<fraction> \d\/\d ) {0}
       (?<amount> (\g<fraction>)|(\d+(\.\d+)?(\s*)(.?\g<fraction>)?) ) {0}
       (?<range> ((\g<fraction>|\g<amount>)\s*(to|-)\s*(\g<fraction>|\g<amount>))) {0}
-      (?<unit> (\s*(#{unit_map_as_regex})[\s\.]*)) {0}
+      (?<unit> (\s*(#{unit_map_as_regex})[\s\.]+)) {0}
       (?<unit_amt> (((\g<range>|\g<amount>)\s+)?(\g<unit>))) {0}
 
       (?<container_amount> (\g<range>|\g<amount>)) {0}
@@ -140,6 +140,6 @@ class IngreedyParser
   def parse_unit_and_ingredient
     #parse_unit
     # clean up ingredient string
-    @ingredient = @ingredient_string.lstrip.rstrip.split(/\s+(or)\s+/).first
+    @ingredient = @ingredient_string.lstrip.rstrip
   end
 end

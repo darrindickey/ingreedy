@@ -215,10 +215,11 @@ describe "ingredient formatting" do
         '3 1/2 cups flour, plus additional for the work surface' => 'flour',
         '1/8 teaspoon ground nutmeg' => 'ground nutmeg',
         '1/2 cup buttermilk' => 'buttermilk',
-        'Vegetable oil or shortening (see my explanation in the post) for frying' => 'Vegetable oil',
+        'Vegetable oil or shortening (see my explanation in the post) for frying' => 'Vegetable oil or shortening',
         '4 tablespoons (1/2 stick or 2 ounces) butter, at room temperature' => 'butter',
         '1 cup white wine (they suggest 1/2 cup but I need more to steam that volume)' => 'white wine',
-        '1 handful fresh flat-leaf parsley leaves, minced' => 'fresh flat-leaf parsley leaves'
+        '1 handful fresh flat-leaf parsley leaves, minced' => 'fresh flat-leaf parsley leaves',
+        'Coarse or pearl sugar for sprinkling (optional)' => 'Coarse or pearl sugar for sprinkling'
     }
   #}
 
