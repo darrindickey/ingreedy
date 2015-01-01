@@ -26,8 +26,6 @@ class IngreedyParser
       \g<container_amount>?\g<unit_amt>?(of)?\g<container_size>?\g<ingredient>\g<specifics>?
     /xi
 
-    puts ingreedy_regex
-
     results = ingreedy_regex.match(@query)
 
     @ingredient_string = results[:ingredient]
