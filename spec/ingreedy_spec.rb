@@ -219,7 +219,19 @@ describe "ingredient formatting" do
         '4 tablespoons (1/2 stick or 2 ounces) butter, at room temperature' => 'butter',
         '1 cup white wine (they suggest 1/2 cup but I need more to steam that volume)' => 'white wine',
         '1 handful fresh flat-leaf parsley leaves, minced' => 'fresh flat-leaf parsley leaves',
-        'Coarse or pearl sugar for sprinkling (optional)' => 'Coarse or pearl sugar for sprinkling'
+        'Coarse or pearl sugar for sprinkling (optional)' => 'Coarse or pearl sugar for sprinkling',
+        '1 15-ounce can of white cannelini or navy beans, drained and rinsed' => 'white cannelini or navy beans',
+        '1 1/2 teaspoons (.17 oz.) instant yeast' => 'instant yeast',
+        '1 stick (1/2cup) unsalted butter, melted' => 'unsalted butter',
+        '2 pounds cooked lobster meat*, chopped roughly into 1/2 and 3/4-inch pieces' => 'cooked lobster meat',
+        'Seeds from 1/2 vanilla bean (or 2 teaspoons of vanilla extract)' => 'Seeds from 1/2 vanilla bean',
+        '3 medium mixed bell peppers (orange, yellow, green)' => 'mixed bell peppers',
+        'Thyme sprigs for garnish. ' => 'Thyme sprigs for garnish',
+        '1 (14- to 19-ounce) can chickpeas, rinsed and drained' => 'chickpeas',
+        '3-pound chicken, in parts or 3 pounds chicken pieces of your choice' => 'chicken',
+        '17.3-ounce package Pepperidge Farm Puff Pastry Sheets (1 sheet), thawed' => 'Pepperidge Farm Puff Pastry Sheets',
+        'skinless, boneless chicken breasts or thighs' => 'skinless boneless chicken breasts or thighs',
+        'skinless, boneless chicken breast halves (about 1 pound)' => 'skinless boneless chicken breast halves'
     }
   #}
 

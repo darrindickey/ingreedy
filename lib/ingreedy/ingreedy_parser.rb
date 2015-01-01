@@ -9,20 +9,24 @@ class IngreedyParser
   def parse
     ingreedy_regex = /
       (?<fraction> \d\/\d ) {0}
+      (?<parens> (\([^)]*\))) {0}
       (?<amount> (\g<fraction>)|(\d+(\.\d+)?(\s*)(.?\g<fraction>)?) ) {0}
       (?<range> ((\g<fraction>|\g<amount>)\s*(to|-)\s*(\g<fraction>|\g<amount>))) {0}
       (?<unit> (\s*(#{unit_map_as_regex})[\s\.]+)) {0}
-      (?<unit_amt> (((\g<range>|\g<amount>)\s+)?(\g<unit>))) {0}
+      (?<unit_amt> (((\g<range>|\g<amount>)[\s\-]+)?(\g<unit>)+)) {0}
 
-      (?<container_amount> (\g<range>|\g<amount>)) {0}
+      (?<container_amount> (\g<range>|\g<amount>)\s+) {0}
       (?<container_unit> [^)]+) {0}
-      (?<container_size> (\g<container_amount>\s*)*\(\g<container_amount>\s*\g<container_unit>\)) {0}
+      (?<container_size> (\g<container_amount>\s*)*(\g<parens>)+) {0}
 
-      (?<ingredient> [^(,;]+ ) {0}
+      (?<ingredient_adjective> [^(,;]+(less,|ly,)) {0}
+      (?<ingredient> (\g<ingredient_adjective>)*[^(,;]+ ) {0}
       (?<specifics> ,\s*.* ) {0}
 
       \g<container_amount>?\g<unit_amt>?(of)?\g<container_size>?\g<ingredient>\g<specifics>?
     /xi
+
+    puts ingreedy_regex
 
     results = ingreedy_regex.match(@query)
 
@@ -92,8 +96,10 @@ class IngreedyParser
     set_unit_variations :dash, ["dash", "dashes"]
     set_unit_variations :touch, ["touch", "touches"]
     set_unit_variations :handful, ["handful", "handfuls"]
+    set_unit_variations :stick, ["stick", "sticks"]
     # generic size units
     set_unit_variations :large, ['large']
+    set_unit_variations :medium, ['medium']
     set_unit_variations :small, ['small', 'tiny']
     set_unit_variations :box, ['boxes', 'box']
     set_unit_variations :can, ['cans', 'can']
@@ -140,6 +146,6 @@ class IngreedyParser
   def parse_unit_and_ingredient
     #parse_unit
     # clean up ingredient string
-    @ingredient = @ingredient_string.lstrip.rstrip
+    @ingredient = @ingredient_string.lstrip.rstrip.sub(/[^\/\w\s\d-]/, "")
   end
 end
