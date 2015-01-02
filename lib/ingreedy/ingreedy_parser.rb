@@ -13,15 +13,15 @@ class IngreedyParser
       (?<amount> (\g<fraction>)|(\d+(\.\d+)?(\s*)(.?\g<fraction>)?) ) {0}
       (?<range> ((\g<fraction>|\g<amount>)\s*(to|-)\s*(\g<fraction>|\g<amount>))) {0}
       (?<unit> (\s*(#{unit_map_as_regex})[\s\.]+)) {0}
-      (?<unit_amt> (((\g<range>|\g<amount>)[\s\-]+)?(\g<unit>)+)) {0}
+      (?<unit_amt> (\g<parens>)?(((\g<range>|\g<amount>)[\s\-]+)?(\g<unit>)+)) {0}
 
       (?<container_amount> (\g<range>|\g<amount>)\s+) {0}
       (?<container_unit> [^)]+) {0}
       (?<container_size> (\g<container_amount>\s*)*(\g<parens>)+) {0}
 
-      (?<ingredient_adjective> [^(,;]+(less,|ly,)) {0}
-      (?<ingredient> (\g<ingredient_adjective>)*[^(,;]+ ) {0}
-      (?<specifics> ,\s*.* ) {0}
+      (?<ingredient_adjective> [^-(,;]+(less,|ly,|full,)) {0}
+      (?<ingredient> (\g<ingredient_adjective>)*([^(,;-]|(-\w))+) {0}
+      (?<specifics> (,| - )\s*.* ) {0}
 
       \g<container_amount>?\g<unit_amt>?(of)?\g<container_size>?\g<ingredient>\g<specifics>?
     /xi
@@ -142,8 +142,7 @@ class IngreedyParser
   end
 
   def parse_unit_and_ingredient
-    #parse_unit
     # clean up ingredient string
-    @ingredient = @ingredient_string.lstrip.rstrip.sub(/[^\/\w\s\d-]/, "")
+    @ingredient = @ingredient_string.lstrip.rstrip.sub(/[^\/\w\s\d-]/, '').strip
   end
 end

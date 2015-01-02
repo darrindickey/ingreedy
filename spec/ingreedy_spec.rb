@@ -231,7 +231,8 @@ describe "ingredient formatting" do
         '3-pound chicken, in parts or 3 pounds chicken pieces of your choice' => 'chicken',
         '17.3-ounce package Pepperidge Farm Puff Pastry Sheets (1 sheet), thawed' => 'Pepperidge Farm Puff Pastry Sheets',
         'skinless, boneless chicken breasts or thighs' => 'skinless boneless chicken breasts or thighs',
-        'skinless, boneless chicken breast halves (about 1 pound)' => 'skinless boneless chicken breast halves'
+        'skinless, boneless chicken breast halves (about 1 pound)' => 'skinless boneless chicken breast halves',
+        '2 skinless, boneless chicken breast halves - pounded to about 3/4-inch thickness and cut into 8 strips each' => 'skinless boneless chicken breast halves'
     }
   #}
 
