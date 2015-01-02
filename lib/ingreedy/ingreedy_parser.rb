@@ -143,6 +143,6 @@ class IngreedyParser
 
   def parse_unit_and_ingredient
     # clean up ingredient string
-    @ingredient = @ingredient_string.lstrip.rstrip.sub(/[^\/\w\s\d-]/, '').strip
+    @ingredient = @ingredient_string.lstrip.rstrip.sub(/[^\/\%\w\s\d-]/, '').strip
   end
 end

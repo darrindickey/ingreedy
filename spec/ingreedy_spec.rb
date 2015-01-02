@@ -198,6 +198,7 @@ describe "ingredient formatting" do
   #before(:all) {
     @expected_results = {
         '1 c. flour' => 'flour',
+        '  2% milk  ' => '2% milk',
         '1  c. Crisco shortening' => 'Crisco shortening',
         '2  large Granny Smith apples, diced' => 'Granny Smith apples',
         '2 to 3  Tbsp. chili powder' => 'chili powder',
